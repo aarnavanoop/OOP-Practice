@@ -10,6 +10,17 @@ class MobileProgram
       + "\nMobile Number: " + jimMobile.getNumber() + "\nDevice: " + jimMobile.getDevice()
       + "\nBalance: " + jimMobile.getBalance());
 
+      jimMobile.setAccType("PAYG");
+      jimMobile.setDevice("iPhone 6s");
+      jimMobile.setNumber("0712345");
+      jimMobile.setBalance(15.50);
+
+      Console.WriteLine("Account Type :" + jimMobile.getAccType()
+      + "\nMobile Number: " + jimMobile.getNumber() + "\nDevice: " + jimMobile.getDevice()
+      + "\nBalance: " + jimMobile.getBalance());
+
+      Console.ReadLine();
+
     }
 }
 
@@ -46,6 +57,28 @@ class Mobile
     {
         return this.balance.ToString("C");
     }
+
+    //Mutator Methods
+    public void setAccType(string accType)
+    {
+        this.accType = accType;
+    }
+
+    public void setDevice(string device)
+    {
+        this.device = device;
+    }
+
+    public void setNumber(string number)
+    {
+        this.number = number;
+    }
+
+    public void setBalance(double balance)
+    {
+        this.balance = balance;
+    }
+
 
 
 }
