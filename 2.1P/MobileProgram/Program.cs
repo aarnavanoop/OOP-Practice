@@ -29,6 +29,9 @@ class Mobile
     private string accType, device, number;
     private double balance;
 
+    private const double CALL_COST = 0.5;
+    private const double TEXT_COST = 0.01;
+
     public Mobile(string accType, string device, string number)
     {
         this.accType = accType;
@@ -79,5 +82,25 @@ class Mobile
         this.balance = balance;
     }
 
+    public void addCredit(double amount)
+    {
+        this.balance += amount;
+        Console.WriteLine(amount);
+    }
+
+    public void makeCall(int minutes)
+    {
+        double cost = minutes * CALL_COST;
+        this.balance -= cost;
+        Console.WriteLine(getBalance());
+
+    }
+
+    public void sendText(int numTexts)
+    {
+        double cost = numTexts * TEXT_COST;
+        this.balance -= cost;
+        Console.WriteLine(getBalance());
+    }
 
 }
