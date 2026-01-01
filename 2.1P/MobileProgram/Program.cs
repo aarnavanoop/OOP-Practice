@@ -19,7 +19,16 @@ class MobileProgram
       + "\nMobile Number: " + jimMobile.getNumber() + "\nDevice: " + jimMobile.getDevice()
       + "\nBalance: " + jimMobile.getBalance());
 
+      Console.WriteLine();
+      jimMobile.addCredit(500);
+      jimMobile.makeCall(5);
+      jimMobile.sendText(150);
+
       Console.ReadLine();
+
+      Mobile secondMobile = new Mobile("PAYG","IPHONE SE", "12345");
+
+
 
     }
 }
@@ -85,14 +94,14 @@ class Mobile
     public void addCredit(double amount)
     {
         this.balance += amount;
-        Console.WriteLine(amount);
+        Console.WriteLine($"Credit added, new amount: {getBalance()}");
     }
 
     public void makeCall(int minutes)
     {
         double cost = minutes * CALL_COST;
         this.balance -= cost;
-        Console.WriteLine(getBalance());
+        Console.WriteLine($"Balance left after making call: {getBalance()}");
 
     }
 
@@ -100,7 +109,7 @@ class Mobile
     {
         double cost = numTexts * TEXT_COST;
         this.balance -= cost;
-        Console.WriteLine(getBalance());
+        Console.WriteLine($"Balance left after sending text(s) {getBalance()}");
     }
 
 }
