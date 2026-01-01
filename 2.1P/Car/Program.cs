@@ -4,7 +4,28 @@ class CarProgram
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Please tell me the fuel efficiency of you car: ");
+        bool isValid = false;
+        double efficiency;
+        do
+        {
+            Console.WriteLine("Please tell me the fuel efficiency of you car: ");
+            string? input = Console.ReadLine();
+
+            isValid = double.TryParse(input, out efficiency);
+            if (!isValid)
+            {
+                Console.WriteLine("Please enter a valid number!");
+            }
+        }while(!isValid);
+                Car firstCar = new Car(efficiency);
+
+        Console.WriteLine($"Car has been created with an efficiency of {firstCar.FuelEfficiency} mpg");
+        Console.WriteLine($"The amount of fuel it has in the tank is {firstCar.FuelInLitres} litres ");
+        Console.WriteLine($"The total miles driven is {firstCar.MilesDriven}");
+
+        string message = firstCar.printFuelCost();
+        Console.WriteLine(message);
+
     }
 }
 
@@ -22,7 +43,7 @@ class Car
         MilesDriven = milesDriven;
     }
 
-    public string printFuelCost(double costOfFuel)
+    public string printFuelCost()
     {
         return $"The cost of fuel is: {costOfFuel:C}";
     }
@@ -54,13 +75,15 @@ class Car
         double fuelUsedInGallons;
         double fuelUsedInLitres;
         double costOfJourney = 0;
+        string fuelUsed = "";
         MilesDriven += milesToDrive;
         fuelUsedInGallons = milesToDrive/FuelEfficiency;
         fuelUsedInLitres = convertToLitres(fuelUsedInGallons);
 
         costOfJourney = calcCost(fuelUsedInLitres);
 
-        printFuelCost(costOfJourney);
+        fuelUsed = printFuelCost();
+        Console.WriteLine(fuelUsed);
 
     }
 }
