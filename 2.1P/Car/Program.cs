@@ -1,13 +1,21 @@
 ﻿namespace Problem3;
 
+class CarProgram
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Please tell me the fuel efficiency of you car: ");
+    }
+}
+
 class Car
 {
     public double FuelEfficiency {get; set;}
-    public double FuelInLitres {get;set;} = 0;
-    public double MilesDriven {get;set;} = 0;
+    public double FuelInLitres {get;set;}
+    public double MilesDriven {get;set;}
     private const double costOfFuel = 1.385;
 
-    public Car(double fuelEfficiency, double fuelInLitres, double milesDriven)
+    public Car(double fuelEfficiency, double fuelInLitres = 0, double milesDriven = 0)
     {
         FuelEfficiency = fuelEfficiency;
         FuelInLitres = fuelInLitres;
@@ -55,9 +63,4 @@ class Car
         printFuelCost(costOfJourney);
 
     }
-
-
-
-
-
 }
