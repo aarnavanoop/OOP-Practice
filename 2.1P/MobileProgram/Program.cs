@@ -27,6 +27,11 @@ class MobileProgram
       Console.ReadLine();
 
       Mobile secondMobile = new Mobile("PAYG","IPHONE SE", "12345");
+      secondMobile.setBalance(10000);
+      Console.WriteLine($"Balance set as {secondMobile.getBalance()}");
+
+      secondMobile.makeCall(100);
+      secondMobile.sendText(125);
 
 
 
