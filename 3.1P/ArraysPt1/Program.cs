@@ -134,6 +134,96 @@ class Program
 
             return true;
         }
+
+        static List<int> Merge(List<int> list_a, List<int> list_b)
+        {
+            if (!IsSorted(list_a) || !IsSorted(list_b))
+                {
+                    return null;
+                }
+
+            List<int> mergedList = new List<int>();
+            int i = 0;
+            int j = 0;
+
+            while(i < list_a.Count && j < list_b.Count)
+            {
+                if(list_a[i] <= list_b[j])
+                {
+                    mergedList.Add(list_a[i]);
+                    i++;
+                }
+                else
+                {
+                    mergedList.Add(list_b[j]);
+                    j++;
+                }
+            }
+
+            while(i < list_a.Count)
+            {
+                mergedList.Add(list_a[i]);
+                i++;
+            }
+            while(j < list_b.Count)
+            {
+                mergedList.Add(list_b[j]);
+                i++;
+            }
+            return mergedList;
+        }
     
+        static bool IsSorted(List<int> list)
+        {
+            for(int i = 0; i < list.Count; i++)
+            {
+                if(list[i] > list[i + 1])
+                {
+                    return false;
+                }
+            }
+            return true;
+
+        }
+        Console.WriteLine("=== Testing Merge Method ===\n");
+
+        // Case 1: Standard Sorted Lists
+        List<int> a1 = new List<int> { 1, 2, 2, 5 };
+        List<int> b1 = new List<int> { 1, 3, 4, 5, 7 };
+        PrintTestResult("Standard Merge", Merge(a1, b1)); 
+        // Expected: 1, 1, 2, 2, 3, 4, 5, 5, 7
+
+        // Case 2: One Empty List
+        List<int> a2 = new List<int> { 1, 2, 2, 5 };
+        List<int> b2 = new List<int> { }; 
+        PrintTestResult("Empty List Merge", Merge(a2, b2)); 
+        // Expected: 1, 2, 2, 5
+
+        // Case 3: At least one list is UNSORTED
+        List<int> a3 = new List<int> { 5, 2, 2, 1 }; // Unsorted
+        List<int> b3 = new List<int> { 1, 3, 4, 5, 7 };
+        PrintTestResult("Unsorted Input (Should be NULL)", Merge(a3, b3)); 
+        // Expected: null
+
+        // Case 4: Both lists empty
+        PrintTestResult("Both Empty", Merge(new List<int>(), new List<int>()));
+        // Expected: { }
+
+        static void PrintTestResult(string label, List<int> result)
+            {
+                Console.Write($"{label}: ");
+                if (result == null)
+                {
+                    Console.WriteLine("NULL");
+                }
+                else if (result.Count == 0)
+                {
+                    Console.WriteLine("{ empty }");
+                }
+                else
+                {
+                    Console.WriteLine(string.Join(", ", result));
+                }
+            }
     }
 }
