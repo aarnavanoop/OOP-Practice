@@ -33,6 +33,20 @@ class Program
         Console.WriteLine($"This consists of {studentArray.Length} marks");
         Console.WriteLine($"The average mark is {total/studentArray.Length}");
 
+        string[] studentNames = new string[6];
+        string? userInput = "";
+
+        for(int i = 0; i < studentNames.Length; i++)
+        {
+            Console.WriteLine($"What is the name of the student at position {i + 1}?");
+            userInput = Console.ReadLine();
+            studentNames[i] = userInput;
+        }
+
+        for(int i = 0; i < studentNames.Length; i++)
+        {
+            Console.WriteLine($"Student {i + 1}: {studentNames[i]}");
+        }
 
     
     }
