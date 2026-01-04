@@ -3,16 +3,23 @@
     static void Main(string[] args)
     {
         MyTime JimTime = new MyTime(23,59,23);
-        JimTime.NextMinute();
+        JimTime.NextHour();
         Console.WriteLine(JimTime);
 
-        MyTime MaxTime = new MyTime(14,59,23);
-        MaxTime.NextMinute();
+        MyTime MaxTime = new MyTime(23,59,59);
+        MaxTime.NextHour();
         Console.WriteLine(MaxTime);
 
-        MyTime AdenTime = new MyTime(23,17,23);
-        AdenTime.NextMinute();
+        MyTime AdenTime = new MyTime(23,01,02);
+        AdenTime.NextHour();
         Console.WriteLine(AdenTime);
+
+        MyTime ChrisTime = new MyTime(11,59,59);
+        ChrisTime.NextHour();
+        Console.WriteLine(ChrisTime);
+        
+
+
 
 
     }
@@ -139,7 +146,7 @@ class MyTime
         return this;
     }
 
-    public void NextMinute()
+    public MyTime NextMinute()
     {
         if(this.Minute == 59)
         {
@@ -159,6 +166,21 @@ class MyTime
             this.Minute ++;
         }
          
+        return this;
+    }
+
+    public MyTime NextHour()
+    {
+        if(this.Hour == 23)
+        {
+            this.Hour = 0;
+        }
+        else
+        {
+            this.Hour++;
+        }
+
+        return this;
     }
 
 }
