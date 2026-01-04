@@ -1,4 +1,16 @@
-﻿class Account
+﻿class TestAccount
+{
+    static void Main(string[] args)
+    {
+        Account JimAccount = new Account("Jim", 1000);
+        JimAccount.Deposit(150);
+        JimAccount.Withdraw(100);
+        JimAccount.Print();
+    }
+}
+
+
+class Account
 {
     public decimal Balance {get;private set;}
  
@@ -23,6 +35,6 @@
     public void Print()
     {
       Console.WriteLine($"The current user is {Name}");
-      Console.WriteLine($"The balance is {Balance}");
+      Console.WriteLine($"The balance is {Balance:C}");
     }
 }
