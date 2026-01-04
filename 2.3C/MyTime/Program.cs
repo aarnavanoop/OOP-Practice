@@ -1,28 +1,63 @@
 ﻿class TestMyTime
 {
-    static void Main(string[] args)
+static void Main(string[] args)
+{
+    Console.WriteLine("=== Testing MyTime Class ===\n");
+
+    // TEST 1: Constructor & ToString
+    // We start just before midnight to test the rollover logic immediately
+    Console.WriteLine("Test 1: Create valid time (23:59:58)");
+    MyTime t = new MyTime(23, 59, 58);
+    Console.WriteLine($"Start Time: {t}"); // Expected: 23:59:58
+
+    // TEST 2: Exception Handling
+    // We try to break the code intentionally to ensure safety works
+    Console.WriteLine("\nTest 2: Attempting to create invalid time (25:00:00)");
+    try
     {
-        MyTime JimTime = new MyTime(23,59,23);
-        JimTime.NextHour();
-        Console.WriteLine(JimTime);
-
-        MyTime MaxTime = new MyTime(23,59,59);
-        MaxTime.NextHour();
-        Console.WriteLine(MaxTime);
-
-        MyTime AdenTime = new MyTime(23,01,02);
-        AdenTime.NextHour();
-        Console.WriteLine(AdenTime);
-
-        MyTime ChrisTime = new MyTime(11,59,59);
-        ChrisTime.NextHour();
-        Console.WriteLine(ChrisTime);
-        
-
-
-
-
+        MyTime badTime = new MyTime(25, 0, 0);
+        Console.WriteLine("ERROR: Object was created! Validation failed.");
     }
+    catch (ArgumentOutOfRangeException e)
+    {
+        Console.WriteLine($"SUCCESS: Correctly caught error: {e.Message}");
+    }
+
+    // TEST 3: NextSecond Rollover (The "New Year's Eve" test)
+    // 23:59:58 -> 23:59:59 -> 00:00:00
+    Console.WriteLine("\nTest 3: Testing NextSecond Rollover");
+    t.NextSecond();
+    Console.WriteLine($"Step 1 (+1s): {t}"); // Expected: 23:59:59
+    t.NextSecond();
+    Console.WriteLine($"Step 2 (+1s): {t}"); // Expected: 00:00:00 (CRITICAL CHECK)
+
+    // TEST 4: PreviousSecond Rollover (Reverse logic)
+    // 00:00:00 -> 23:59:59
+    Console.WriteLine("\nTest 4: Testing PreviousSecond Rollover");
+    t.PreviousSecond();
+    Console.WriteLine($"Result: {t}"); // Expected: 23:59:59
+
+    // TEST 5: PreviousMinute
+    // 23:59:59 -> 23:58:59
+    Console.WriteLine("\nTest 5: Testing PreviousMinute");
+    t.PreviousMinute();
+    Console.WriteLine($"Result: {t}"); // Expected: 23:58:59
+
+    // TEST 6: PreviousHour
+    // 23:58:59 -> 22:58:59
+    Console.WriteLine("\nTest 6: Testing PreviousHour");
+    t.PreviousHour();
+    Console.WriteLine($"Result: {t}"); // Expected: 22:58:59
+
+    // TEST 7: Method Chaining
+    // Proves that 'return this' allows multiple actions in one line
+    Console.WriteLine("\nTest 7: Testing Method Chaining");
+    // Logic: 22:58:59 -> (+1h) 23:58:59 -> (+1m) 23:59:59 -> (+1s) 00:00:00
+    t.NextHour().NextMinute().NextSecond(); 
+    Console.WriteLine($"Result after chaining (+1h, +1m, +1s): {t}"); // Expected: 00:00:00
+
+    Console.WriteLine("\n=== Test Complete ===");
+}
 }
 
 
@@ -180,6 +215,70 @@ class MyTime
             this.Hour++;
         }
 
+        return this;
+    }
+
+    public MyTime PreviousSecond()
+    {
+        if (this.Second == 0)
+        {
+            this.Second = 59;
+            if (this.Minute == 0)
+            {
+                this.Minute = 59;
+                if (this.Hour == 0)
+                {
+
+                    this.Hour = 23;
+                }
+                else
+                {
+                    this.Hour--;
+                }
+            }
+            else
+            {
+                this.Minute--;
+            }
+        }
+        else
+        {
+            this.Second--;
+        }
+        return this;
+    }
+
+    public MyTime PreviousMinute()
+    {
+        if (this.Minute == 0)
+        {
+            this.Minute = 59;
+            if (this.Hour == 0)
+            {
+                this.Hour = 23;
+            }
+            else
+            {
+                this.Hour--;
+            }
+        }
+        else
+        {
+            this.Minute--;
+        }
+        return this;
+    }
+
+    public MyTime PreviousHour()
+    {
+        if(this.Hour == 0)
+        {
+            this.Hour = 23;
+        }
+        else
+        {
+            this.Hour --;
+        }
         return this;
     }
 
