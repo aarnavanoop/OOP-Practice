@@ -4,6 +4,12 @@ class Program
 {
     static void Main(string[] args)
     {
+        int[] arrayFive = {1,2,2,1};
+        bool isPalindrome = Palindrome(arrayFive);
+        if (isPalindrome)
+        {
+            Console.WriteLine("It is a palindrome");
+        }
         double[] arrayOne = new double[10];
         arrayOne[0] = 1.0;
         arrayOne[1] = 1.1;
@@ -111,9 +117,23 @@ class Program
             Console.WriteLine(newNames[i]);
         }
 
+        static bool Palindrome(int[] array)
+        {
+            if(array.Length < 1)
+            {
+                return false;
+            }
 
+            for(int i = 0; i < array.Length/2; i++)
+            {
+                if(array[i] != array[array.Length - 1 - i])
+                {
+                    return false;
+                }
+            }
 
-
+            return true;
+        }
     
     }
 }
