@@ -48,6 +48,41 @@ class Program
             Console.WriteLine($"Student {i + 1}: {studentNames[i]}");
         }
 
+        int[] integerArray = new int[5];
+        string userStringInput = "";
+        int userIntInput = 0;
+
+        int currentLargest;
+        int currentSmallest;
+
+        for(int i = 0; i < integerArray.Length; i++)
+        {
+            Console.WriteLine("Please enter an integer: ");
+            userStringInput = Console.ReadLine();
+            //No validation here as it has been done numerous times in previous tasks,
+            //keeping simplicity here and focusing on key concepts instead
+            int.TryParse(userStringInput, out userIntInput);
+            integerArray[i] = userIntInput;
+        }
+
+        currentLargest = integerArray[0];
+        currentSmallest = integerArray[0];
+        for(int i = 1; i < integerArray.Length; i++)
+        {
+            if(currentLargest < integerArray[i])
+            {
+                currentLargest = integerArray[i];
+            }
+
+            if(currentSmallest > integerArray[i])
+            {
+                currentSmallest = integerArray[i];
+            }
+            Console.WriteLine($"Element: {integerArray[i]}");
+        }
+        
+        Console.WriteLine($"The largest integer is: {currentLargest}");
+        Console.WriteLine($"The smallest integer is: {currentSmallest}");
     
     }
 }
