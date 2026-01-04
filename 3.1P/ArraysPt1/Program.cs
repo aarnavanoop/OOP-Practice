@@ -95,6 +95,24 @@ class Program
             Console.WriteLine();
         }
 
+        Random randomvalue = new Random();
+        int randomNumber = randomvalue.Next(1,12);
+        List<string> newNames = new List<string>();
+
+        for(int i = 0; i < randomNumber; i++)
+        {
+            Console.WriteLine($"Add a name to the list: ");
+            newNames.Add(Console.ReadLine());
+            Console.WriteLine();
+        }
+
+        for(int i = 0; i < newNames.Count; i++)
+        {
+            Console.WriteLine(newNames[i]);
+        }
+
+
+
 
     
     }
