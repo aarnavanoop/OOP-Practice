@@ -15,7 +15,25 @@ class Program
         arrayOne[7] = 1.7;
         arrayOne[8] = 1.8;
         arrayOne[9] = 1.9;
-        
 
+        for(int i = 0; i < arrayOne.Length; i++)
+        {
+            Console.WriteLine($"The element at index {i} is {arrayOne[i]:0.0}");
+        }
+        
+        int[] studentArray = { 87,68,94,100,83,78,85,91,76,87};
+        int total = 0;
+
+        for(int i = 0; i < studentArray.Length; i++)
+        {
+            total += studentArray[i];
+        }
+
+        Console.WriteLine($"The total marks for the student is: {total}");
+        Console.WriteLine($"This consists of {studentArray.Length} marks");
+        Console.WriteLine($"The average mark is {total/studentArray.Length}");
+
+
+    
     }
 }
