@@ -1,4 +1,25 @@
-﻿class MyTime
+﻿class TestMyTime
+{
+    static void Main(string[] args)
+    {
+        MyTime JimTime = new MyTime(23,59,23);
+        JimTime.NextMinute();
+        Console.WriteLine(JimTime);
+
+        MyTime MaxTime = new MyTime(14,59,23);
+        MaxTime.NextMinute();
+        Console.WriteLine(MaxTime);
+
+        MyTime AdenTime = new MyTime(23,17,23);
+        AdenTime.NextMinute();
+        Console.WriteLine(AdenTime);
+
+
+    }
+}
+
+
+class MyTime
 {
     private int _hour;
     private int _minute;
@@ -66,8 +87,78 @@
         this.Second = second;  
     }
 
-    
+    public void SetHour(int hour)
+    {
+        this.Hour = hour;
+    }
 
+    public void SetMinute(int minute)
+    {
+        this.Minute = minute;
+    }
 
+    public void SetSecond(int second)
+    {
+        this.Second = second;
+    }
+
+    public override string ToString()
+    {
+        return $"{Hour:D2}:{Minute:D2}:{Second:D2}";
+    }
+
+    public MyTime NextSecond()
+    {
+
+        if (this.Second == 59)
+        {
+            this.Second = 0;
+            
+            if (this.Minute == 59)
+            {
+                this.Minute = 0;
+                
+                if (this.Hour == 23)
+                {
+                    this.Hour = 0;
+                }
+                else
+                {
+                    this.Hour++;
+                }
+            }
+            else
+            {
+                this.Minute++;
+            }
+        }
+        else 
+        {
+            this.Second++;
+        }
+        return this;
+    }
+
+    public void NextMinute()
+    {
+        if(this.Minute == 59)
+        {
+            if(this.Hour == 23)
+            {
+                this.Hour = 0;
+                this.Minute = 0;
+            }
+            else
+            {
+                this.Hour++;
+                this.Minute = 0;
+            }
+        }
+        else
+        {
+            this.Minute ++;
+        }
+         
+    }
 
 }
