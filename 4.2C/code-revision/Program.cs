@@ -1,7 +1,9 @@
-﻿/* This is the  fixed buggy code that shows better
+﻿using System;
+
+/* This is the  fixed buggy code that shows better
 software engineering principles*/
 
-using System;
+/*using System;
 
 namespace DuplicateCode
 {
@@ -84,4 +86,36 @@ namespace DuplicateCode
             }
         }
     }
+}*/
+
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        string[] category = {"Cat1", "Cat2", "Cat3"};
+        TableDesign.SetBackground();
+        TableDesign.SetColumns(category);
+    }
 }
+class TableDesign
+{
+    public static void SetBackground()
+    {
+        Console.ForegroundColor = ConsoleColor.Blue;
+    }
+
+    public static void SetColumns(string[] category)
+    {
+        Console.WriteLine($"{"Categories", 55}");   
+        Console.WriteLine(new string('-', 110));
+        Console.Write($"{"Item: ", -15}");
+
+        for(int i = 0;i < category.Length; i++)
+        {
+            Console.Write($"{category[i], 20}");
+        }
+        Console.WriteLine(new string('-', 110));
+    }
+}
+
