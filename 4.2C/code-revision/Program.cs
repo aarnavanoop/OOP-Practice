@@ -1,121 +1,187 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
-/* This is the  fixed buggy code that shows better
-software engineering principles*/
-
-/*using System;
-
-namespace DuplicateCode
+namespace TaskPlanner.Models
 {
-    class DuplicateCode
+    // 1. THE TASK OBJECT
+    public class Task
     {
+        public string Name { get; set; }
+        public DateTime DueDate { get; set; }
+        public bool IsImportant { get; set; }
+
+        public Task(string name, DateTime dueDate, bool isImportant = false)
+        {
+            Name = name.Length > 20 ? name.Substring(0, 20) : name;
+            DueDate = dueDate;
+            IsImportant = isImportant;
+        }
+
+        public override string ToString()
+        {
+            return $"{Name} ({DueDate:MM/dd})";
+        }
+    }
+
+    // 2. THE CATEGORY OBJECT
+    public class Category
+    {
+        public string Name { get; set; }
+        public List<Task> Tasks { get; private set; } = new List<Task>();
+
+        public Category(string name) => Name = name;
+
+        public void AddTask(Task task) => Tasks.Add(task);
+        
+        public void RemoveTaskAt(int index)
+        {
+            if (index >= 0 && index < Tasks.Count) Tasks.RemoveAt(index);
+        }
+
+        public void ReorderTask(int oldIndex, int newIndex)
+        {
+            if (oldIndex < 0 || oldIndex >= Tasks.Count || newIndex < 0 || newIndex >= Tasks.Count) return;
+            var item = Tasks[oldIndex];
+            Tasks.RemoveAt(oldIndex);
+            Tasks.Insert(newIndex, item);
+        }
+    }
+}
+
+namespace TaskPlanner.App
+{
+    using TaskPlanner.Models;
+
+    class Program
+    {
+        static List<Category> categories = new List<Category>();
 
         static void Main(string[] args)
         {
-            string[] tasksIndividual = new string[0], tasksWork = new string[0], tasksFamilly = new string[0];
+            // Seed initial data
+            categories.Add(new Category("Personal"));
+            categories.Add(new Category("Work"));
 
             while (true)
             {
-                Console.Clear();
-                int max = tasksIndividual.Length > tasksWork.Length ? tasksIndividual.Length : tasksWork.Length;
-                max = max > tasksFamilly.Length ? max : tasksFamilly.Length;
+                RenderTable();
+                Console.WriteLine("\nOptions: [1] Add Cat [2] Del Cat [3] Add Task [4] Del Task [5] Reorder [6] Move Cat [7] Exit");
+                Console.Write(">> ");
+                string choice = Console.ReadLine();
 
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine(new string(' ', 12) + "CATEGORIES");
-                Console.WriteLine(new string(' ', 10)+new string('-', 94));
-                Console.WriteLine("{0,10}|{1,30}|{2,30}|{3,30}|", "item #", "Personal", "Work", "Family");
-                Console.WriteLine(new string(' ', 10) + new string('-', 94));
-                for (int i = 0; i < max; i++)
+                switch (choice)
                 {
-                    Console.Write("{0,10}|", i);
-
-                    if (tasksIndividual.Length > i)
-                    {
-                        Console.Write("{0,30}|", tasksIndividual[i]);
-                    }
-                    else
-                    {
-                        Console.Write("{0,30}|", "N/A");
-                    }
-
-                    if (tasksWork.Length > i)
-                    {
-                        Console.Write("{0,30}|", tasksWork[i]);
-                    }
-                    else
-                    {
-                        Console.Write("{0,30}|", "N/A");
-                    }
-
-                    if (tasksFamilly.Length > i)
-                    {
-                        Console.Write("{0,30}|", tasksFamilly[i]);
-                    }
-                    else
-                    {
-                        Console.Write("{0,30}|", "N/A");
-                    }
-                    Console.WriteLine();
-                }
-
-                Console.ResetColor(); Console.WriteLine("\nWhich category do you want to place a new task? Type \'Personal\', \'Work\', or \'Family\'");
-                Console.Write(">> "); string listName = Console.ReadLine().ToLower();
-                Console.WriteLine("Describe your task below (max. 30 symbols)."); Console.Write(">> ");
-                string task = Console.ReadLine(); if (task.Length > 30) task = task.Substring(0, 30);
-
-                string[] goalsIndividualNew = null;
-                if (listName == "personal")
-                {
-                    goalsIndividualNew = new string[tasksIndividual.Length + 1];
-                    for (int j = 0; j < tasksIndividual.Length; j++)goalsIndividualNew[j] = tasksIndividual[j];
-                    goalsIndividualNew[goalsIndividualNew.Length - 1] = task; tasksIndividual = goalsIndividualNew;
-                }
-                else if (listName == "work") {
-                    string[] goalsWorkNew = new string[tasksWork.Length + 1];
-                    for (int j = 0; j < tasksWork.Length; j++) { goalsWorkNew[j] = tasksWork[j]; }
-                    goalsWorkNew[goalsWorkNew.Length - 1] = task; tasksWork = goalsWorkNew;
-                } else if (listName == "family")
-                {
-                    string[] goalsFamillyNew = new string[tasksFamilly.Length + 1];
-                    for (int j = 0; j < tasksFamilly.Length; j++)
-                    {
-                        goalsFamillyNew[j] = tasksFamilly[j];
-                    } goalsFamillyNew[goalsFamillyNew.Length - 1] = task;
-                    tasksFamilly = goalsFamillyNew;
+                    case "1": AddCategory(); break;
+                    case "2": DeleteCategory(); break;
+                    case "3": AddTask(); break;
+                    case "4": DeleteTask(); break;
+                    case "5": ReorderTask(); break;
+                    case "6": MoveTaskBetweenCategories(); break;
+                    case "7": return;
                 }
             }
         }
-    }
-}*/
 
-
-class Program
-{
-    static void Main(string[] args)
-    {
-        string[] category = {"Cat1", "Cat2", "Cat3"};
-        TableDesign.SetBackground();
-        TableDesign.SetColumns(category);
-    }
-}
-class TableDesign
-{
-    public static void SetBackground()
-    {
-        Console.ForegroundColor = ConsoleColor.Blue;
-    }
-
-    public static void SetColumns(string[] category)
-    {
-        Console.WriteLine($"{"Categories", 55}");   
-        Console.WriteLine(new string('-', 110));
-        Console.Write($"{"Item: ", -15}");
-
-        for(int i = 0;i < category.Length; i++)
+        static void RenderTable()
         {
-            Console.Write($"{category[i], 20}");
+            Console.Clear();
+            if (categories.Count == 0) { Console.WriteLine("No categories available."); return; }
+
+            int maxTasks = categories.Max(c => c.Tasks.Count);
+            int colWidth = 35;
+
+            // Print Headers
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write("{0,5} |", "ID");
+            foreach (var cat in categories) Console.Write("{0," + colWidth + "} |", cat.Name);
+            Console.WriteLine("\n" + new string('-', 5 + (categories.Count * (colWidth + 2))));
+            Console.ResetColor();
+
+            // Print Rows
+            for (int i = 0; i < Math.Max(maxTasks, 1); i++)
+            {
+                Console.Write("{0,5} |", i);
+                foreach (var cat in categories)
+                {
+                    if (i < cat.Tasks.Count)
+                    {
+                        var task = cat.Tasks[i];
+                        if (task.IsImportant) Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write("{0," + colWidth + "} |", task.ToString());
+                        Console.ResetColor();
+                    }
+                    else Console.Write("{0," + colWidth + "} |", "---");
+                }
+                Console.WriteLine();
+            }
         }
-        Console.WriteLine(new string('-', 110));
+
+        // --- FUNCTIONALITY METHODS ---
+
+        static void AddCategory()
+        {
+            Console.Write("New category name: ");
+            categories.Add(new Category(Console.ReadLine()));
+        }
+
+        static void DeleteCategory()
+        {
+            Console.Write("Enter Category Name to delete: ");
+            string name = Console.ReadLine();
+            categories.RemoveAll(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+        }
+
+        static void AddTask()
+        {
+            Console.Write("Category Name: ");
+            var cat = categories.FirstOrDefault(c => c.Name.Equals(Console.ReadLine(), StringComparison.OrdinalIgnoreCase));
+            if (cat == null) return;
+
+            Console.Write("Task Description: ");
+            string desc = Console.ReadLine();
+            Console.Write("Due Date (yyyy-mm-dd): ");
+            DateTime.TryParse(Console.ReadLine(), out DateTime date);
+            Console.Write("Important? (y/n): ");
+            bool imp = Console.ReadLine().ToLower() == "y";
+
+            cat.AddTask(new Task(desc, date, imp));
+        }
+
+        static void DeleteTask()
+        {
+            Console.Write("Category Name: ");
+            var cat = categories.FirstOrDefault(c => c.Name.Equals(Console.ReadLine(), StringComparison.OrdinalIgnoreCase));
+            Console.Write("Task Index: ");
+            if (int.TryParse(Console.ReadLine(), out int idx)) cat?.RemoveTaskAt(idx);
+        }
+
+        static void ReorderTask()
+        {
+            Console.Write("Category Name: ");
+            var cat = categories.FirstOrDefault(c => c.Name.Equals(Console.ReadLine(), StringComparison.OrdinalIgnoreCase));
+            Console.Write("Current Index: ");
+            int oldIdx = int.Parse(Console.ReadLine());
+            Console.Write("New Priority Index: ");
+            int newIdx = int.Parse(Console.ReadLine());
+            cat?.ReorderTask(oldIdx, newIdx);
+        }
+
+        static void MoveTaskBetweenCategories()
+        {
+            Console.Write("From Category: ");
+            var from = categories.FirstOrDefault(c => c.Name.Equals(Console.ReadLine(), StringComparison.OrdinalIgnoreCase));
+            Console.Write("Task Index: ");
+            int idx = int.Parse(Console.ReadLine());
+            Console.Write("To Category: ");
+            var to = categories.FirstOrDefault(c => c.Name.Equals(Console.ReadLine(), StringComparison.OrdinalIgnoreCase));
+
+            if (from != null && to != null && idx < from.Tasks.Count)
+            {
+                var task = from.Tasks[idx];
+                from.RemoveTaskAt(idx);
+                to.AddTask(task);
+            }
+        }
     }
 }
-
