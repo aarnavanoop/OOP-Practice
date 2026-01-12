@@ -14,7 +14,10 @@ class ZooPark
         
         Eagle edgarEagle = new Eagle("Edgar the Eagle", "Fish", "Bird Mania",20,15,"Black", "American", 150);
 
-        tonyTiger.EatMeat();
+        tonyTiger.MakeNoise();
+        tonyTiger.Eat();
+        williamWolf.Eat();
+        edgarEagle.Eat();
     }
 }
 
@@ -38,7 +41,7 @@ class Animal
         Color = color;
     }
 
-    public void Eat()
+    public virtual void Eat()
     {
         Console.WriteLine($"{Name} is eating");
     }
@@ -48,24 +51,9 @@ class Animal
         Console.WriteLine($"{Name} is sleeping");
     }
 
-    public void MakeNoise()
+    public virtual void MakeNoise()
     {
         Console.WriteLine($"{Name} is making a noise");
-    }
-
-    public void MakeLionNoise()
-    {
-        Console.WriteLine("A lion noise is made");
-    }
-
-    public void MakeEagleNoise()
-    {
-        Console.WriteLine("An eagle noise is made");
-    }
-
-    public void MakeWolfNoise()
-    {
-        Console.WriteLine("A wolf noise is made");
     }
 
     public void EatMeat()
@@ -80,17 +68,36 @@ class Animal
     
 }
 
-class Tiger : Animal
+class Feline : Animal
 {
-    public string Species {get;private set;}
-    public string ColorStripes{get;private set;}
-    public Tiger(string name, string diet, string location, double weight, int age, string color, string species, string colorStripes)
+    public string Species{get;private set;}
+    public Feline(string name, string diet, string location, double weight, int age, string color, string species)
         : base(name, diet, location, weight, age, color)
     {
         Species = species;
+    }
+
+}
+class Tiger : Feline
+{
+    public string ColorStripes{get;private set;}
+    public Tiger(string name, string diet, string location, double weight, int age, string color, string species, string colorStripes)
+        : base(name, diet, location, weight, age, color,species)
+    {
         ColorStripes = colorStripes;
     }
+
+    public override void MakeNoise()
+    {
+        Console.WriteLine("ROAAAAR");
+    }
+
+    public override void Eat()
+    {
+        Console.WriteLine("I can eat over 20lbs of meat! ");
+    }
 }
+
 
 class Eagle : Animal
 {
@@ -113,6 +120,16 @@ class Eagle : Animal
     {
         Console.WriteLine("Eagle is flying");
     }
+
+    public override void MakeNoise()
+    {
+        Console.WriteLine("Eagle whistles");
+    }
+
+    public override void Eat()
+    {
+        Console.WriteLine("Eagle eats 1 pound of meat");
+    }
 }
 
 class Wolf : Animal
@@ -121,5 +138,15 @@ class Wolf : Animal
         : base(name, diet, location, weight, age, color)
     {
         
+    }
+
+    public override void MakeNoise()
+    {
+        Console.WriteLine("Wolf howls");
+    }
+
+    public override void Eat()
+    {
+        Console.WriteLine("Wolf eats 5 pounds of meat");
     }
 }
