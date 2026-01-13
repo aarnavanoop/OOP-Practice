@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BroCode", "BroCode.csproj", "{3DFD7781-062C-3856-4702-93C5F1B84F59}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3DFD7781-062C-3856-4702-93C5F1B84F59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DFD7781-062C-3856-4702-93C5F1B84F59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DFD7781-062C-3856-4702-93C5F1B84F59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DFD7781-062C-3856-4702-93C5F1B84F59}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {221436AC-1EAD-4FA4-A551-9846629B17C6}
+	EndGlobalSection
+EndGlobal
