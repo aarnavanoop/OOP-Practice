@@ -16,6 +16,26 @@ class Program
         Console.WriteLine(duck.ToString());
         duck.fly();
 
+        List<Bird> listOfBirds = [bird, penguin, duck];
+
+        foreach(Bird birdName in listOfBirds)
+        {
+            Console.WriteLine($"{birdName.Name}");
+        }
+
+        Duck duck1 = new Duck("Steve", 100, "Mallard");
+        Duck duck2 = new Duck("Draymond", 200, "Decoy");
+
+        List<Duck> listOfDucks = [duck1, duck2];
+
+        IEnumerable<Bird> upcastDucks = listOfDucks;
+        List<Bird> birds = [new Bird("Feather")];
+        birds.AddRange(upcastDucks);
+
+        foreach(Bird birdNameInInterface in birds)
+        {
+            Console.WriteLine(birdNameInInterface);
+        }
     }
 }
 class Bird
