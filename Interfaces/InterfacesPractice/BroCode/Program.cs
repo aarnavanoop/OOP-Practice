@@ -7,6 +7,10 @@
 
         Hawk hawk = new Hawk();
         hawk.Hunt();
+
+        Fish fish = new Fish();
+        fish.Flee();
+        fish.Hunt();
     }
 }
 
@@ -36,7 +40,15 @@ class Hawk: IPredator
     }
 }
 
-class Fish
+class Fish : IPredator, IPrey
 {
-    
+    public void Flee()
+    {
+        Console.WriteLine("The fish swims away");
+    }
+
+    public void Hunt()
+    {
+        Console.WriteLine("The fish is hunting");
+    }
 }
