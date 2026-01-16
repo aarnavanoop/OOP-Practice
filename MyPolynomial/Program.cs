@@ -18,6 +18,9 @@ class Program
         MyPolynomial trial = polynomialOne.Add(another);
         Console.WriteLine(trial.ToString());
 
+        MyPolynomial trialMultiply = polynomialOne.Multiply(another);
+        Console.WriteLine(trialMultiply);
+
     }
 }
 class MyPolynomial
@@ -100,4 +103,27 @@ class MyPolynomial
         MyPolynomial afterAdding = new MyPolynomial(addedPolynomials);
         return afterAdding;
     }
+
+    public MyPolynomial Multiply(MyPolynomial another)
+    {
+        int LengthOriginal = Coeffs.Length;
+        int LengthNew = another.Coeffs.Length;
+        int newArrayLength = LengthOriginal + LengthNew;
+
+        double[] newArray = new double[newArrayLength];
+
+        for(int i = 0;i < LengthOriginal; i++)
+        {
+            for(int j = 0; j < LengthNew; j++)
+            {
+                double product = Coeffs[i] * another.Coeffs[j];
+                newArray[i + j] += product;
+            }
+        }
+
+        MyPolynomial newCoeff = new MyPolynomial(newArray);
+        return newCoeff;
+    }
 }
+
+
