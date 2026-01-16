@@ -1,7 +1,7 @@
 ﻿namespace Task3D;
 
 
-class Program
+public class Program
 {
     static void Main(string[] args)
     {
@@ -23,7 +23,7 @@ class Program
 
     }
 }
-class MyPolynomial
+public class MyPolynomial
 {
     public double[] Coeffs {get;set;}
     public MyPolynomial(double[] coeffs)
